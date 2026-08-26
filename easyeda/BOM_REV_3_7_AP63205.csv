@@ -1,0 +1,31 @@
+Ref,Valor,Funcao,Package sugerido,Especificacao minima,Observacao
+U_BUCK1,AP63205WU-7,Buck 12V para 5V,TSOT-23-6,VIN 3.8-32V; 2A; 5V fixo; 1.1MHz,JLC/LCSC C2071056; conferir pinagem no EasyEDA
+L1,4.7uH APS0630M4R7A,Indutor do buck,SMD 7.7x6.6mm,Isat >=3A preferencialmente >=3.5A; Irms >=2A; DCR <100mohm,Candidato C47327203; blindado/baixo DCR
+CIN1,10uF 50V,Capacitor de entrada do buck,C1206,X7R/X7S; baixa ESR; tensao >=50V,Colocar junto de VIN/GND
+CIN2,100nF 50V,Desacoplamento de entrada,C0603,X7R; tensao >=50V,Colocar junto de VIN/GND
+CIN_BULK1,100-220uF 25V,Bulk de entrada,CAP_RADIAL_P5_OR_SMD,Baixa ESR; tensao >=25V,Proximo ao borne de entrada
+CBST1,100nF,Bootstrap capacitor,C0603,X7R; tensao >=25V,Entre BST e SW
+COUT1;COUT2,22uF 10V,Caps de saida do buck,C1206,X7R/X7S; considerar DC bias,Usar dois em paralelo conforme circuito tipico
+COUT_HF1,100nF,Desacoplamento de saida,C0603,X7R,Proximo ao +5V/GND
+J1,Borne 2 vias,Entrada principal 12V,BORNE_2/KF301-5.08,Corrente >=3A; passo conforme borne comprado,P1 +12V_IN; P2 GND
+F1,3A,Fusivel/polyfuse principal,FUSE-1206_OR_PTC-TH,Dimensionar conforme consumo total,Valor inicial; recalcular antes de fabricar
+Q1,FDS9435A,Protecao contra polaridade reversa,SO-8,VDS >=30V; ID >=5A; RDS(on) baixo,LCSC C87670; topologia high-side P-channel
+R_GS,100k,Polarizacao/protecao gate,R0603,1%; >=0.1W,Inserir conforme topologia final do P-MOS
+ZD_GS,12V,Zener gate-source,SOD-123,Limitar VGS se necessario,Opcional conforme MOSFET escolhido
+D_TVS1,SMBJ18A,TVS 12V protegido,SMB/DO-214AA,VRWM nao deve atuar em operacao normal,Exemplos C284006/C151256; confirmar maxima tensao da fonte
+JP_FAN1,Jumper/fusivel,Fan 12V direto,HDR-F-2.54_1X2_OR_FUSE,Corrente conforme ventoinha,Conecta +12V_PROTECTED a +12V_FAN
+J_FAN1,Borne 2 vias,Saida 12V fan,BORNE_2,Corrente conforme ventoinha,+12V_FAN/GND
+J_5V1,Header 2 vias,Saida 5V auxiliar,HDR-F-2.54_1X2,Corrente conforme uso,+5V/GND
+JP_ARD_5V,Jumper 2 vias,Isolar +5V do Arduino,HDR-F-2.54_1X2,Corrente do Arduino + perifericos,Fechar para alimentar ARD_5V_IN pelo buck
+JP_RELE_5V,Jumper 2 vias,Isolar +5V do modulo rele,HDR-F-2.54_1X2,Corrente do modulo rele externo,Fechar para usar +5V do buck nos reles
+JP_I2C_PU,Jumper 2 vias,Habilitar pull-ups I2C onboard,HDR-F-2.54_1X2,Baixa corrente,Deixar aberto se modulos ja tiverem pull-up forte
+R_I2C_SDA;R_I2C_SCL,4.7k DNP,Pull-ups I2C opcionais,R0805,1%; >=0.1W,Instalar apenas se necessario e habilitar via JP_I2C_PU
+J_BUZZ1,Modulo buzzer ativo 5V,Alerta local,HDR-F-2.54_1X4,Usar modulo com driver/transistor,D4_BUZZER/GND/+5V; pino NC reserva
+J_ENV1,SHT31/SHT35/HDC302x opcional,Sensor I2C melhor,HDR-F-2.54_1X4,Modulo I2C 5V ou com level/regulador,Alternativa mais confiavel que DHT22
+J_RTC1,DS3231 com bateria,RTC para quedas de energia,HDR-F-2.54_1X4,Modulo com CR2032 e I2C,Ja existia; mantido e documentado
+U_LDO1,DNP LDO 3V3,Opcao sensor limpo,SOT-23-5,Baixo ruido; corrente conforme sensores,DNP/futuro +3V3_SENSOR
+R_LED12,2.2k,LED 12V,R0603,>=0.1W,Ajustar brilho desejado
+LED_12V,LED,Indicador 12V,LED0603,Corrente baixa,Opcional
+R_LED5,1k,LED 5V,R0603,>=0.1W,Ajustar brilho desejado
+LED_5V,LED,Indicador 5V,LED0603,Corrente baixa,Opcional
+TP_12V;TP_5V;TP_GND;TP_SW,Test point,Diagnostico,HDR-F-2.54_1X1 ou TP_SMD,TP_SW apenas osciloscopio,Associar footprint real

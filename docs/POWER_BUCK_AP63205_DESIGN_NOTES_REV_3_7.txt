@@ -1,0 +1,65 @@
+Chocadeira rev 3.7 - Buck AP63205 integrado e melhorias de controle
+
+Base consultada:
+- Diodes Incorporated AP63200/AP63201/AP63203/AP63205 datasheet oficial.
+- Produto AP63205: 3.8 V a 32 V de entrada, 2 A continuo, saida fixa 5 V, TSOT-23-6, 1.1 MHz.
+- Arduino UNO R4 WiFi opera com GPIO em 5 V e aceita alimentacao por VIN/barrel jack na faixa 6-24 V, mas esta revisao usa 5 V regulado via jumper.
+
+Melhorias da rev 3.7:
+- JP_ARD_5V isola o +5V do buck do pino 5V do Arduino para testes.
+- JP_RELE_5V isola o +5V do modulo de rele externo.
+- JP_I2C_PU habilita/desabilita pull-ups I2C onboard R_I2C_SDA/R_I2C_SCL.
+- J_BUZZ1 adiciona buzzer ativo 5 V por modulo/driver externo no pino D4.
+- J_ENV1 adiciona sensor I2C melhor opcional, como SHT31/SHT35/HDC302x.
+- RTC DS3231 ja existia na rev 3.6; manter modulo com bateria CR2032.
+
+Circuito buck AP63205 fixo em 5 V:
+- U_BUCK1: AP63205WU-7, TSOT-23-6, buck sincrono 5 V fixo, candidato JLC/LCSC C2071056.
+- L1: 4.7 uH, indutor blindado, candidato APS0630M4R7A C47327203, Isat >= 3 A preferencialmente >= 3.5 A, Irms >= 2 A, DCR < 100 mohm.
+- CIN1: 10 uF, 50 V, X7R/X7S, baixo ESR, muito proximo de VIN/GND.
+- CIN2: 100 nF, 50 V, ceramico, muito proximo de VIN/GND.
+- CIN_BULK1: 100 a 220 uF, 25 V ou maior, na entrada da placa.
+- CBST1: 100 nF entre BST e SW.
+- COUT1/COUT2: 22 uF + 22 uF, 10 V ou maior, X7R/X7S, considerar DC bias.
+- COUT_HF1: 100 nF em +5V/GND.
+- FB: conectado ao +5V, roteado como sensoriamento, longe de SW e L1.
+- EN: conectado ao +12V_PROTECTED para auto-start, conforme permitido pelo datasheet.
+
+Entrada e protecoes:
+- J1: borne 2 vias, pino 1 +12V_IN, pino 2 GND.
+- F1: polyfuse/fusivel 3 A inicial. Recalcular conforme consumo real da ventoinha e perifericos.
+- Q1: MOSFET P-channel para protecao contra polaridade reversa, candidato FDS9435A SO-8 C87670, VDS >= 30 V, RDS(on) baixo, corrente >= 5 A.
+- R_GS: 100 k gate-source/gate para referencia de desligamento, conforme topologia final.
+- ZD_GS: zener 12 V entre gate-source se necessario para limitar VGS.
+- D_TVS1: SMBJ18A SMB/DO-214AA ou equivalente no barramento protegido de 12 V. Confirmar tensao maxima da fonte.
+
+Saidas e testes:
+- +12V_FAN: sai do +12V_PROTECTED por JP_FAN1/jumper/fusivel dedicado; nao passa pelo buck.
+- +5V: alimenta Arduino por JP_ARD_5V, reles externos por JP_RELE_5V, OLED e perifericos.
+- +3V3_SENSOR: opcao futura por U_LDO1 DNP para sensores mais sensiveis.
+- J_BUZZ1: modulo buzzer ativo 5 V em D4_BUZZER, GND e +5V.
+- J_ENV1: sensor I2C opcional de maior precisao; DHT22 continua como redundancia/prova real.
+- TP_12V, TP_5V, TP_GND e TP_SW adicionados. TP_SW e apenas para osciloscopio/diagnostico.
+- LED_12V com R_LED12 2.2 k; LED_5V com R_LED5 1 k.
+
+Layout recomendado:
+- Seguir o layout do fabricante. Loop VIN-CIN-U_BUCK1-GND extremamente curto.
+- L1 deve ficar ao lado do pino SW. Manter o no SW pequeno e afastado de sensores/cabos.
+- COUT deve ficar proximo de L1 e GND. Usar vias curtas para plano GND.
+- Usar plano GND solido e, se possivel, cobre 2 oz para a regiao de potencia.
+- Nao rotear I2C, DHT, encoder ou nivel perto de SW, L1 ou abaixo do buck.
+- Sensores devem ficar na borda/por cabos, longe de calor e ruido do buck.
+
+Estimativa inicial de eficiencia e aquecimento, 12 V -> 5 V:
+- 0.5 A: Pout 2.5 W, eta ~88%, perda ~0.34 W, subida teorica ~30 C com thetaJA 89 C/W.
+- 1.0 A: Pout 5.0 W, eta ~90%, perda ~0.56 W, subida teorica ~49 C com thetaJA 89 C/W.
+- 1.5 A: Pout 7.5 W, eta ~91%, perda ~0.74 W, subida teorica ~66 C com thetaJA 89 C/W.
+- 2.0 A: Pout 10.0 W, eta ~90%, perda ~1.11 W, subida teorica ~99 C com thetaJA 89 C/W.
+- Essas contas sao conservadoras/primeira passada. A temperatura real depende muito do layout, cobre, indutor e ventilacao.
+
+Pendencias antes de fabricar:
+- Conferir no EasyEDA se os footprints associados batem com as pecas compradas e com o metodo de montagem.
+- Fazer layout do buck manualmente seguindo o datasheet; nao usar autorouter nessa area.
+- Conferir backfeed USB/+5V do Arduino UNO R4 WiFi.
+- Recalcular F1/JP_FAN1 conforme fonte, ventoinha e cargas reais.
+- Rodar Footprints Verification, Convert to PCB, DRC/ERC e revisao visual antes de Gerber.
