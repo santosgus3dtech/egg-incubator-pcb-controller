@@ -2,6 +2,8 @@
 
 Hardware case study for an Arduino UNO R4 WiFi egg-incubator controller, with EasyEDA schematic revisions, 12 V to 5 V power conversion through an AP63205 buck regulator, RTC, encoder, sensors, relay output and test points.
 
+![Hardware flow](docs/images/hardware-flow.svg)
+
 ## What Is In This Public Repo
 
 - EasyEDA 3.7 revision in JSON format.
@@ -37,4 +39,4 @@ releases/            # pacotes de importacao EasyEDA
 
 ## Portfolio
 
-This is a useful public portfolio project because it shows datasheet reading, hardware decision-making, BOM organization, technical revisions and fabrication-ready deliverables. See [docs/portfolio-case-study.md](docs/portfolio-case-study.md).
+This is a useful public portfolio project because it shows datasheet reading, hardware decision-making, BOM organization, technical revisions, repository checks and fabrication-ready deliverables. See [docs/portfolio-case-study.md](docs/portfolio-case-study.md).

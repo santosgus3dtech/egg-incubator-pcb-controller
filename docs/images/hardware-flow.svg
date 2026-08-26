@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="470" viewBox="0 0 1120 470" role="img" aria-labelledby="title desc">
+  <title id="title">Egg incubator PCB controller flow</title>
+  <desc id="desc">Hardware flow diagram from protected 12V input through buck power, Arduino controller, sensors and relay output.</desc>
+  <rect width="1120" height="470" rx="18" fill="#f8fafc"/>
+  <defs>
+    <style>
+      .box{fill:#fff;stroke:#cbd5e1;stroke-width:2}
+      .power{fill:#fff7ed;stroke:#ea580c}
+      .logic{fill:#eff6ff;stroke:#2563eb}
+      .io{fill:#f0fdf4;stroke:#16a34a}
+      .t{font-family:Inter,Segoe UI,Arial,sans-serif;fill:#111827}
+      .h{font-size:22px;font-weight:850}
+      .p{font-size:15px}
+      .s{font-size:12px;fill:#475569}
+      .arrow{stroke:#334155;stroke-width:3;fill:none;marker-end:url(#arrow)}
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#334155"/>
+    </marker>
+  </defs>
+  <text x="42" y="48" class="t h">Egg Incubator PCB Controller</text>
+  <text x="42" y="76" class="t s">Portfolio view of the EasyEDA schematic revision and controller blocks</text>
+  <rect x="48" y="150" width="160" height="110" rx="12" class="box power"/>
+  <text x="84" y="192" class="t p">12 V input</text>
+  <text x="84" y="218" class="t s">Fuse, TVS</text>
+  <text x="84" y="238" class="t s">P-channel MOSFET</text>
+  <rect x="260" y="150" width="180" height="110" rx="12" class="box power"/>
+  <text x="300" y="192" class="t p">AP63205 buck</text>
+  <text x="300" y="218" class="t s">12 V to 5 V</text>
+  <text x="300" y="238" class="t s">Layout notes</text>
+  <rect x="500" y="125" width="210" height="160" rx="12" class="box logic"/>
+  <text x="545" y="176" class="t p">Arduino UNO R4 WiFi</text>
+  <text x="545" y="204" class="t s">Main control logic</text>
+  <text x="545" y="224" class="t s">Jumpers and test points</text>
+  <text x="545" y="244" class="t s">RTC + state recovery</text>
+  <rect x="770" y="80" width="245" height="105" rx="12" class="box io"/>
+  <text x="814" y="122" class="t p">Sensors and UI</text>
+  <text x="814" y="148" class="t s">RTC, encoder, buzzer</text>
+  <text x="814" y="168" class="t s">I2C environmental sensor</text>
+  <rect x="770" y="245" width="245" height="105" rx="12" class="box io"/>
+  <text x="820" y="287" class="t p">Actuation</text>
+  <text x="820" y="313" class="t s">Relay output</text>
+  <text x="820" y="333" class="t s">Incubator peripherals</text>
+  <path d="M208 205 H260" class="arrow"/>
+  <path d="M440 205 H500" class="arrow"/>
+  <path d="M710 170 C735 150 745 135 770 132" class="arrow"/>
+  <path d="M710 240 C735 270 745 292 770 298" class="arrow"/>
+</svg>
