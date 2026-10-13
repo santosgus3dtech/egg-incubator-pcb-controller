@@ -1,5 +1,7 @@
 # Egg Incubator PCB Controller
 
+🇧🇷 [Leia este README em Português (Brasil)](README.pt-BR.md).
+
 Hardware case study for an Arduino UNO R4 WiFi egg-incubator controller, with EasyEDA schematic revisions, 12 V to 5 V power conversion through an AP63205 buck regulator, RTC, encoder, sensors, relay output and test points.
 
 ![Hardware flow](docs/images/hardware-flow.svg)
