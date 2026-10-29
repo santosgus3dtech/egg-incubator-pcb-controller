@@ -6,3 +6,7 @@ legacy/
 .env.*
 *.bak
 *.tmp
+
+# Metadados locais do cofre documental
+/docs/.obsidian/
+/docs/.trash/
